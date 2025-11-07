@@ -23,17 +23,15 @@ document.addEventListener('keyup', (e)=>{
             console.log("inside keyboard listner:",e.key)
             clearInput();
         }
-        else if((e.key).match(/[0-9]/g))
+        else if(e.key>=0&&e.key<=9)
         {
             appendToDisplay(Number(e.key));
-            console.log(typeof e.key);
         }
         else if((e.key).match(/[*+^\/.-]/g))
         {
-            console.log(typeof e.key);
-            console.log(e.key);
             appendToDisplay(e.key)
         }
+        else{}
     }
 });
 
