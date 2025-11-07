@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>calculater</title>
+     <script> const socket = new WebSocket("ws://" + location.host); socket.onmessage = (e) => { if (e.data === "reload") { location.reload(); } }; </script>
+    <link rel="stylesheet" href="calculator.css">
+    <script src="calculator.js"></script>
+</head>
+<body>
+    <div id="outer-body">
+        <div id="input-dis"></div>
+        <div id="output-dis"></div>
+        <!-- javascript doesn't recognise ^ as power operator, instead it interprets is as bitwise operator XOR -->
+        <button type="button" onclick="appendToDisplay('^')"`>^</button>
+        <button type="button" onclick="appendToDisplay('/')"`>/</button>
+        <button type="button" onclick="appendToDisplay('*')"`>*</button>
+        <button type="button" onclick="appendToDisplay('-')"`>-</button>
+        <button type="button" onclick="appendToDisplay(7)"`>7</button>
+        <button type="button" onclick="appendToDisplay(9)"`>9</button>
+        <button type="button" onclick="appendToDisplay(8)"`>8</button>
+        <button type="button" onclick="appendToDisplay('+')"`>+</button>
+        <button type="button" onclick="appendToDisplay(4)"`>4</button>
+        <button type="button" onclick="appendToDisplay(5)"`>5</button>
+        <button type="button" onclick="appendToDisplay(6)"`>6</button>
+        <button type="button" onclick="appendToDisplay('\b')"`>Back</button>
+        <button type="button" onclick="appendToDisplay(1)"`>1</button>
+        <button type="button" onclick="appendToDisplay(2)"`>2</button>
+        <button type="button" onclick="appendToDisplay(3)"`>3</button>
+        <button type="button" onclick="appendToDisplay(0)"`>0</button>
+        <button type="button" onclick="solve()"` id="ent-btn">=</button>
+        <button type="button" onclick="clearInput()"`>CL</button>
+        <button type="button" onclick="appendToDisplay('.')"`>.
+            Dec
+        </button>
+    </div>
+</body>
+</html>
