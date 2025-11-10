@@ -13,8 +13,8 @@ body{
 }
 
 #outer-body{
-    height: 65vh;
-    min-width: 45vh;
+    height: 60vh;
+    min-width: 40vh;
     background-color: rgba(25, 163, 228, 0.549);
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -77,7 +77,7 @@ button::after{
     content: '';
     border-radius: 20px;
     transition: transform 0.3s ease-in;
-    background: linear-gradient(60deg, rgb(219, 75, 255),rgb(212, 235, 217));
+    background: linear-gradient(60deg, rgb(66, 233, 255),rgb(243, 186, 80));
     animation: rotate 10s infinite linear;
 }
 
