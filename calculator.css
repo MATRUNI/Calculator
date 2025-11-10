@@ -88,7 +88,7 @@ button::after{
 
 button:hover{
     transform: scale(1.05);
-    box-shadow: 1px 1px 1px rgb(131, 104, 227);
+    box-shadow: 1px 1px 1px rgb(91, 89, 99);
 }
 
 button:active{
