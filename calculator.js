@@ -2,7 +2,7 @@
 let sum="";  //to store the solved number
 let prevValue;  //to store the previous value entered
 let pseudoSum="";  //for preinting normally
-
+// let parser= require("./etxt");
 const filter_include=["Enter","Backspace","Delete"];
 const regex=/[-*+.\/0-9^]/g;
 let btn=document.querySelectorAll('button');
@@ -39,6 +39,67 @@ function popElements(str)
 {
     return str.slice(0,-1);
 }
+
+function toNumber(a)
+{
+    a=a.map(element => {
+        return isNaN(element)?element:Number(element);
+    });
+    return a;
+}
+
+function parse(str) 
+{
+    let a= str.match(/\d*\.\d+|\d+|[-+*\/^]/g);
+    console.log("String before:");
+    console.log(a);
+    let count = 0;
+    let arr = [];
+    let reg=/\d+/;
+    let reg1=/[-+*\/]/
+    for (let i=0;i<a.length;i++) 
+      {
+        //   console.log(i);
+
+          if (reg.test(a[i])) 
+          {
+            if(i>0)
+            {
+                if(reg1.test(a[i-2])||i===1)
+                {
+                    if(a[i-1]==="-")
+                    {
+                        arr.pop();
+                        arr.push("-"+a[i]);
+                        
+                    }
+                    else
+                    {
+                        arr.pop();
+                        arr.push(a[i]);
+                    }
+                }
+                else
+                {
+                    arr.push(a[i]);
+                }
+            }
+            else
+            {
+                arr.push(a[i]);
+            }
+            count++;
+          } 
+          else
+          {
+            arr.push(a[i]);
+          }
+          // console.log(a);
+        }
+        console.log("String After:");
+    console.log(arr);
+    return arr;
+}
 function appendToDisplay(a)
 {
     // gets the value in variable a
@@ -67,7 +128,7 @@ function solve()
     // pseudoSum=sum;
     sum=equate(pseudoSum);
     // eval is build-in fuction for solving strings like "456*4654-6/651+654" and other
-    s.innerText=sum;
+    s.innerText=sum;    
 }
 
 //below function clears everything, kindof reset
@@ -84,8 +145,8 @@ function clearInput(){
 //this function willl prase the string and give the output but Shunting Algorithm
 function equate(eqn)
 {
-    let token = eqn.match(/\d+(\.\d+)?|[-*/+()^]/g);
-    console.log(token);
+    // let token = eqn.match(/\d+(\.\d+)?|[-*/+()^]/g);
+    // console.log(token);
 
     const precedenceMap = new Map([
         ["+", 1],
@@ -95,17 +156,18 @@ function equate(eqn)
         ["^", 3],
         ]);
 
-    for(let t=0; t<token.length; t++)
-    {
-        console.log(typeof(token[t]));
-        if(!isNaN(token[t]))
-        {
-            token[t] = Number(token[t]);
-        }
-    }
+    // for(let t=0; t<token.length; t++)
+    // {
+    //     console.log(typeof(token[t]));
+    //     if(!isNaN(token[t]))
+    //     {
+    //         token[t] = Number(token[t]);
+    //     }
+    // }
 
+    let token=parse(eqn);
     console.log(token);
-
+    token=toNumber(token);
     let stack = [], queue = [];
 
 
