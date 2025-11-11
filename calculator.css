@@ -95,3 +95,10 @@ button:hover{
 button:active{
     transform: scale(.95);
 }
+
+@media screen and (min-width: 450px) {
+    #outer-body{
+        max-width: 22vw;
+    }
+    
+}
