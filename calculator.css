@@ -10,6 +10,7 @@ body{
     align-items: center;
     justify-content: center;
     font-size: x-large;
+    flex-direction: column;
 }
 
 #outer-body{
@@ -57,7 +58,7 @@ body{
     border-radius: 20px;
 }
 
-button{
+.btn{
     position: relative;
     border: none;
     background: transparent;
@@ -68,7 +69,7 @@ button{
     font-family: monospace;
 }
 
-button::after{
+.btn::after{
     position: absolute;
     top: -50%;
     left: -50%;
@@ -80,6 +81,48 @@ button::after{
     transition: transform 0.3s ease-in;
     background: linear-gradient(60deg, rgb(66, 233, 255),rgb(243, 186, 80));
     animation: rotate 10s infinite linear;
+}
+
+footer{
+    display: flex;
+    align-items: end;
+    justify-content: flex-end;
+    height: 20vh;
+    width: 22vh
+}
+#historybtn{
+    background-color: rgba(25, 163, 228, 0.549);
+    padding: 1rem;
+    width: 5rem;
+    height: 4em;
+    border-radius: 20px;
+    color: black;
+    font-size: large;
+    border: none;
+    outline: none;
+}
+.historyBlock{
+    white-space: pre-line;
+    position: absolute;
+    top: 0;
+    left: 27vw;
+    width: 40vw;
+    height: 75vh;
+    background-color: lightskyblue;
+    z-index: 10;
+    animation: drop 1s ease;
+    display: none;
+    color: white;
+    padding: 2rem;
+    border-radius: 20px;
+}
+.active{
+    display: block;
+}
+
+@keyframes drop{
+    from{transform: translateY(-100%);}
+    to{transform: translateY(0%);}
 }
 
 @keyframes rotate{
@@ -96,9 +139,13 @@ button:active{
     transform: scale(.95);
 }
 
-@media screen and (min-width: 450px) {
+@media screen and (max-width: 450px) {
     #outer-body{
         max-width: 22vw;
     }
-    
+    #his-block{
+        margin-top: 0.5rem;
+        left: 2vw;
+        width: 80vw;
+    }
 }
