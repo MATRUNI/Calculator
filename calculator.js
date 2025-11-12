@@ -38,8 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
       hisBlock.textContent = "";
       history.forEach((element) => {
         let x = document.createElement("div");
-        console.log(element);
-        x.style.height = "2rem";
+        x.classList.add("x");
         x.innerText = element.equation + " = " + element.answer;
         hisBlock.appendChild(x);
       });
@@ -123,6 +122,7 @@ function solve() {
   let s = document.getElementById("output-dis");
   // pseudoSum=sum;
   sum = equate(pseudoSum);
+  sum=sum.toFixed(4);
   // eval is build-in fuction for solving strings like "456*4654-6/651+654" and other
   s.innerText = sum;
 
