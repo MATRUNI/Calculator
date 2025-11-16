@@ -2,37 +2,46 @@
 let sum = ""; //to store the solved number
 let prevValue; //to store the previous value entered
 let pseudoSum = ""; //for preinting normally
-// let parser= require("./etxt");
 
 let history = [];
-const filter_include = ["Enter", "Backspace", "Delete"];
+const filter_include = ["Enter", "Backspace", "Delete","h"] ;
 const regex = /[-*+.\/0-9^]/g;
 let btn = document.querySelectorAll("button");
+
 document.addEventListener("keyup", (e) => {
-  // console.log(e.key, e.Code);
+
   let getVlaue = document.getElementById("input-dis");
+
   if (filter_include.includes(e.key) || e.key.match(regex)) {
     if (e.key === "Enter") solve();
+
     else if (e.key === "Backspace") {
       pseudoSum = popElements(pseudoSum);
       getVlaue.innerText = pseudoSum;
-    } else if (e.key === "Delete") {
+    } 
+    else if (e.key === "Delete") {
       console.log("inside keyboard listner:", e.key);
       clearInput();
-    } else if (e.key >= 0 && e.key <= 9) {
+    } 
+    else if (e.key >= 0 && e.key <= 9) {
       appendToDisplay(Number(e.key));
-    } else if (e.key.match(/[*+^\/.-]/g)) {
+    } 
+    else if (e.key.match(/[*+^\/.-]/g)) {
       appendToDisplay(e.key);
-    } else {
+    } 
+    else if(e.key==="h") historyFunction();
+    else {
     }
   }
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  let hisBlock = document.getElementById("his-block");
   let history1 = document.getElementById("historybtn");
-  history1.addEventListener("click", () => {
-
+  history1.addEventListener("click",historyFunction);
+});
+function historyFunction()
+{
+  let hisBlock = document.getElementById("his-block");
     hisBlock.classList.toggle("active");
     if (hisBlock.classList.contains("historyBlock")) {
       hisBlock.textContent = "";
@@ -42,11 +51,9 @@ document.addEventListener("DOMContentLoaded", () => {
         x.innerText = element.equation + " = " + element.answer;
         hisBlock.appendChild(x);
       });
-    } else {
-      // hisBlock.textContent="";
-    }
-  });
-});
+    } 
+}
+
 
 function popElements(str) {
   return str.slice(0, -1);
@@ -61,14 +68,11 @@ function toNumber(a) {
 
 function parse(str) {
   let a = str.match(/\d*\.\d+|\d+|[-+*\/^]/g);
-  console.log("String before:");
-  console.log(a);
   let count = 0;
   let arr = [];
   let reg = /\d+/;
   let reg1 = /[-+*\/]/;
   for (let i = 0; i < a.length; i++) {
-    //   console.log(i);
 
     if (reg.test(a[i])) {
       if (i > 0) {
@@ -90,10 +94,8 @@ function parse(str) {
     } else {
       arr.push(a[i]);
     }
-    // console.log(a);
   }
-  console.log("String After:");
-  console.log(arr);
+
   return arr;
 }
 function appendToDisplay(a) {
@@ -120,14 +122,18 @@ function appendToDisplay(a) {
 // function that solves the equation
 function solve() {
   let s = document.getElementById("output-dis");
-  // pseudoSum=sum;
+
   sum = equate(pseudoSum);
-  sum=sum.toFixed(4);
+  sum=Number.isInteger(Number(sum))?sum:sum.toFixed(4);
   // eval is build-in fuction for solving strings like "456*4654-6/651+654" and other
   s.innerText = sum;
 
   history.push({ equation: `${pseudoSum}`, answer: `${sum}` });
-  console.log("History:", history);
+  console.log(history.length);
+  if(history.length>10)
+  {
+    history.shift();
+  }
 }
 
 //below function clears everything, kindof reset
@@ -143,8 +149,6 @@ function clearInput() {
 
 //this function willl prase the string and give the output but Shunting Algorithm
 function equate(eqn) {
-  // let token = eqn.match(/\d+(\.\d+)?|[-*/+()^]/g);
-  // console.log(token);
 
   const precedenceMap = new Map([
     ["+", 1],
@@ -154,17 +158,8 @@ function equate(eqn) {
     ["^", 3],
   ]);
 
-  // for(let t=0; t<token.length; t++)
-  // {
-  //     console.log(typeof(token[t]));
-  //     if(!isNaN(token[t]))
-  //     {
-  //         token[t] = Number(token[t]);
-  //     }
-  // }
-
   let token = parse(eqn);
-  console.log(token);
+
   token = toNumber(token);
   let stack = [],
     queue = [];
@@ -185,7 +180,7 @@ function equate(eqn) {
   }
 
   queue = queue.concat(stack.reverse());
-  console.log(queue);
+
   stack = [];
   for (let q of queue) {
     if (isNaN(q)) {
@@ -218,4 +213,9 @@ function equate(eqn) {
     }
   }
   return stack[0];
+}
+
+function toolTipOnHover()
+{
+
 }
